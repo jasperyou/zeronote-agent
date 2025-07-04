@@ -1,0 +1,67 @@
+# AI Simple Accounting 应用配置
+spring:
+  application:
+    name: ai-simple-accounting
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:h2:file:./data/accounting
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+  
+  # H2控制台配置
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # 安全配置
+  security:
+    user:
+      name: admin
+      password: admin123
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# AI配置
+ai:
+  openai:
+    api-key: ${OPENAI_API_KEY:your-openai-api-key-here}
+    model: gpt-3.5-turbo
+    timeout: 30000
+
+# 日志配置
+logging:
+  level:
+    com.zeronote.accounting: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 应用自定义配置
+app:
+  # 分页默认大小
+  default-page-size: 20
+  # 最大分页大小
+  max-page-size: 100
+  # 是否启用AI分析
+  enable-ai-analysis: true
+  # 数据加密密钥（生产环境应使用环境变量）
+  encryption-key: ${ENCRYPTION_KEY:default-encryption-key-change-in-production} 
